@@ -59,6 +59,8 @@
 
 ## HTTP 与 HTTPS 的区别
 
+> HTTPS = 数据加密 + 网站认证 + 完整性验证 + HTTP
+ 
 | 参数 | HTTP | HTTPS |  
 | ---- | ---- | ---- | 
 | 写法 | http:// | https:// |
