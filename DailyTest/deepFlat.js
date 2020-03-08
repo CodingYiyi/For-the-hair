@@ -41,3 +41,8 @@ function flattenDeep(arr){
     return flattedArray.reverse() // 数组反转
 }
 
+// 4. 仅适用于整数数组的
+var arr = [1,2,[3,4,[5,6],7,8],9]
+var flattedArray = arr.join(",").split(",").map(val=>parseInt(val))
+
+// return [1, 2, 3, 4, 5, 6, 7, 8, 9]
