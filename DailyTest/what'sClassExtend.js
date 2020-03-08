@@ -93,7 +93,7 @@ function SubType (name, age) {
     this.age = age
 }
 
-SubType.prototype = Object.create(SuperType.prototype)
+SubType.prototype = Object.create(SuperType.prototype) //继承原型链
 SubType.prototype.constructor = SubType // 通过 create 方法实现的原型链继承，是没有 constructor 属性的，若需要这个属性，则必须手动修复
 // SubType.prototype = new SuperType() // 通过 new 方法实现的原型链继承，constructor 指向的是父类函数，故也需要手动修复
 SubType.prototype.getAge = function () {
@@ -122,3 +122,77 @@ obj2.getAge()
                  __proto__: Object
 
  */
+
+
+
+// 4. 原型式继承：实现简单的对象属性继承
+// 借助原型可以基于已有的对象创建新对象，同时还不必因此创建自定义类型。
+// 在没有必要创建构造函数，仅让一个对象与另一个对象保持相似的情况下，原型式继承是可以胜任的。
+
+var superObj = {
+    name: "zhangyi"
+}
+var subObj = Object.create(superObj)
+subObj.age = 18
+subObj.name === "zhangyi"
+
+// Conclusion:
+// 与原型链实现继承一样的问题，引用类型值的属性会被所有实例共享
+
+
+
+// 5. 寄生式继承
+// 创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再像真地是它做了所有工作一样返回对象。
+function creatObj(origin){
+    var clone = Object.create(origin)
+    clone.sayHi = function (){
+        console.log("hi")
+    }
+    return clone
+}
+
+var person = {
+    name:"zhangyi",
+    age:18
+}
+
+var extendedPerson = creatObj(person)
+extendedPerson.sayHi()
+
+// Conclusion:
+// 使用寄生式继承为对象添加函数，会由于不能做到函数复用而效率低下（类似于在函数func内通过this.funcName=function(){...}定义函数，new func()返回的实例中，每个实例维护一份funcName函数定义，略浪费）
+// 同原型链实现继承一样，包含引用值类型的属性会被所有实例共享
+
+
+
+// 7. 寄生组合式继承(最优解，方案1. 中已经提到过)
+// 所谓寄生组合式继承，即通过借用构造函数来继承属性，通过原型链的混成形式来继承方法，基本思路：
+// 不必为了指定子类型的原型而调用超类型的构造函数，我们需要的仅是超类型原型的一个副本，本质上就是使用寄生式继承（Object.create）来继承超类型的原型，然后再将结果指定给子类型的原型。寄生组合式继承的基本模式如下所示：
+
+function SuperType (name) {
+    this.name = name
+}
+// 定义父类原型方法
+SuperType.prototype.getName = function () {
+    console.log(this.name)
+    return this.name
+}
+
+function SubType (name, age) {
+    SuperType.call(this,name) // <--=== 子类给父类传参
+    this.age = age
+}
+
+// SubType.prototype = Object.create(SuperType.prototype)
+// SubType.prototype.constructor = SubType // <--===== 修复构造函数不一致或者丢失问题
+Object.setPrototypeOf(SubType.prototype, SuperType.prototype)  // <--==== ES6 提供的设置原型方法(不需要修复上述构造函数属性)
+
+// 扩展子类原型方法
+SubType.prototype.getAge = function(){
+    console.log(this.age)
+    return this.age
+}
+
+var obj1 = new SubType("zhangyi",28)
+obj1.getName()
+obj1.getAge()
