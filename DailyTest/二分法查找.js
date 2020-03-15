@@ -12,4 +12,24 @@ function middleSearch (source,target){
 }
 
 let source = [2,4,6,8,9,10]
-console.log(middleSearch(source,11))
+// let source = [2,4,6,8,9,10].sort((a,b)=>b-a)
+console.log(middleSearch(source,4))
+
+/**
+ 
+source:[2,4,6,8,9,10]
+target:4
+ 2 4 6 8 9 10
+ ↑          ↑ 
+ ↑ ↑
+   ↑↑
+ 
+source:[2,4,6,8,9,10]
+target:7
+ 2 4 6 8 9 10
+ ↑          ↑ 
+       ↑    ↑
+         ↑↑
+        ↑ ↑
+
+*/
