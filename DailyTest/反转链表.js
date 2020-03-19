@@ -11,24 +11,33 @@
 
 // 接收一个数组，返回一个上述格式的链表
 function chainFactory (arr) {
-    let res = []
-    res[arr.length-1] = {
-        value: arr.pop(),
-        next: null
+    let nodeTemp = {
+        value:arr.pop(),
+        next:null
     }
-    for (let i = arr.length - 1; i >= 0; i--) {
-        res[i] = {
-            value: arr[i],
-            next: res[i + 1]
+    let node
+    for(let i = arr.length-1;i>=0;i--){
+        node = {
+            value:arr[i],
+            next:nodeTemp
         }
-    }
-    return res
+        nodeTemp = node
+    } 
+    return node
 }
 
 var arr = [1, 2, 3, 4]
 console.log(chainFactory(arr))
 
 // 链表反转
-function reverseChain(){
-    
+function reverseChain(chain){
+    let nodeArr = []
+    while(chain){
+        nodeArr.push(chain.value)
+        chain = chain.next
+    }
+    return nodeArr.reverse()
 }
+
+
+console.log(reverseChain(chainFactory([2,3,1,4,5])))
