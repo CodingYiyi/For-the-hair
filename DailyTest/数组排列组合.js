@@ -50,3 +50,25 @@ var results = []
 
 permAndComb2(data, "")
 console.log(results)
+
+
+// 思路2：函数传递第二个层级参数index
+var arr = [
+    ['a', 'b'],
+    ['1', '2', '3'],
+    ['x', 'y'],
+]
+results = [];
+result = [];
+doExchange(arr, 0);
+function doExchange(arr, index){
+    for (var i = 0; i<arr[index].length; i++) {
+        result[index] = arr[index][i];
+        if (index != arr.length - 1) {
+            doExchange(arr, index + 1)
+        } else {
+            results.push(result.join(''))
+        }
+    }
+}
+console.log( results);

@@ -22,7 +22,7 @@ function flattenDeep(arr){
 }
 console.log(flattenDeep([1, [2,3,[4,5,[6,8,7],[9],10],11]]))
 
-// 3. 使用栈
+// 3. 使用栈：从后往前判断
 // eg:[1,[2,[3,4]]]
 // stack:[1,[2,[3,4]]] flattedArray:[]
 // stack:[1,2,[3,4]] flattedArray:[]
