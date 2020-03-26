@@ -49,7 +49,7 @@ var throttleF = throttle(function(){
 window.addEventListener("mousemove",throttleF)
 
 
-// 闭包和this
+// 闭包和this，千万别混了！！！
 var a = 1
 function f1(){
     var a = 2;

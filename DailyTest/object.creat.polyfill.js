@@ -1,6 +1,7 @@
 // object.creat(...) 会创建一个新对象，并把它关联到(原型链的方式关联)我们指定的对象，这样我们就可以充分发挥[[Prototype]]机制的优势（查找原型链），访问旧对象上的属性
 // 并且避免不必要的麻烦（比如使用 new 的构造函数调用会生成 .prototype 和 .constructor 引用，详见隔壁 what'sClassExtend.js）
 
+// 早期写法
 // Object._create = function (O) {
 //     function F () { }
 //     F.prototype = O

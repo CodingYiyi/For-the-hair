@@ -15,7 +15,7 @@ func.apply(thisArg,[argsArray])：第一个参数是 this 指向的对象，第�
 Function.prototype._call = function () {
     var [thisArg, ...args] = [...arguments]
     if (!thisArg) thisArg = typeof window == "undefined" ? global : window
-    thisArg.func = this // xxx._call() 函数中，this 就是指代原来的函数，因此可以通过此种方式获取需要执行的原函数
+    thisArg.func = this // xxx._call() 函数中，this指向原来的函数（xxx），因此可以通过此种方式获取需要执行的原函数
     var res = thisArg.func(...args) // 通过此种方式将 func 中的 this 绑定为 thisArg
     delete thisArg.func // 删除临时属性
     return res
