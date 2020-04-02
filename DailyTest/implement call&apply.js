@@ -16,7 +16,7 @@ Function.prototype._call = function () {
     var [thisArg, ...args] = [...arguments]
     if (!thisArg) thisArg = typeof window == "undefined" ? global : window
     thisArg.func = this // xxx._call() 函数中，this指向原来的函数（xxx），因此可以通过此种方式获取需要执行的原函数
-    var res = thisArg.func(...args) // 通过此种方式将 func 中的 this 绑定为 thisArg
+    var res = thisArg.func(...args) // 通过此种方式将 func 中的 this 绑定为 thisArg（因为此处无法使用原生的 call 或者 apply 方法，只能通过点的方式隐式地设置this）
     delete thisArg.func // 删除临时属性
     return res
 }

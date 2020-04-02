@@ -10,19 +10,26 @@
             color: red !important
         }
     </style>
+    <script>
+        var startDownloadCss = new Date().getTime()
+        console.log("开始下载CSS",startDownloadCss)
+    </script>
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
     <!-- <script src="./test.js"></script> -->
-
 </head>
 
 <body>
-    <script>
-        var start = new Date().getTime()
-    </script>
-    <h1>CSS下载阻塞性实验</h1>
+    <h1>CSS下载阻塞性实验h1-1</h1>
+    <!-- <script>
+        console.log("下载完CSS花费时间",new Date().getTime()-startDownloadCss)
+        console.log(document.getElementsByTagName("h1"))
+        var startDom = new Date().getTime()
+        console.log("开始执行JS",startDom)
+    </script> -->
+    <h1>CSS下载阻塞性实验h1-2</h1>
     <!-- <script src="./test.normal.js" ></script> -->
-    <script src="./test.async.js" async></script>
-    <!-- <script src="./test.defer.js" defer></script> -->
+    <!-- <script src="./test.async.js" async></script> -->
+    <script src="./test.defer.js" defer></script>
     <ol>
         <li>CSS下载不会阻塞DOM树的构建</li>
         <li>CSS下载不会阻塞后续JS的下载</li>
@@ -32,6 +39,9 @@
         <li>JS设置defer后，DOM树解析完成会立即执行，不会被还没有下载完的CSS所阻塞</li>
         <li>JS引擎单线程特性：若当前有正在执行的JS，则后续已经下载完的JS会等待</li>
     </ol>
+    <!-- <script defer>
+        console.log(new Date().getTime()-startDownloadCss)
+    </script> -->
     <!-- <script>
         var date = new Date().getTime()
         while (new Date().getTime() - date < 2000) {
