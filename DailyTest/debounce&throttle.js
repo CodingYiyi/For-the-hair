@@ -49,6 +49,15 @@ var throttleF = throttle(function(){
 window.addEventListener("mousemove",throttleF)
 
 
+// 优化：
+// debounce 的问题在于它“太有耐心了”。
+// 试想，如果用户的操作十分频繁——他每次都不等 debounce 设置的 delay 时间结束就进行下一次操作，
+// 于是每次 debounce 都为该用户重新生成定时器，回调函数被延迟了不计其数次。
+// 频繁的延迟会导致用户迟迟得不到响应，用户同样会产生“这个页面卡死了”的观感。
+// 解决方案：利用 throttle 优化 debounce
+
+
+
 // 闭包和this，千万别混了！！！
 var a = 1
 function f1(){

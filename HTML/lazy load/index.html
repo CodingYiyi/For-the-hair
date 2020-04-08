@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片懒加载</title>
+    <style>
+        .img {
+            height: 200px;
+        }
+        .img>img{
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="img">
+            <img class="pic" alt="加载中" data-src="./images/1.jpg">
+        </div>
+        <div class="img">
+            <img class="pic" alt="加载中" data-src="./images/2.jpg">
+        </div>
+        <div class="img">
+            <img class="pic" alt="加载中" data-src="./images/3.jpg">
+        </div>
+        <div class="img">
+            <img class="pic" alt="加载中" data-src="./images/4.jpg">
+        </div>
+        <div class="img">
+            <img class="pic" alt="加载中" data-src="./images/5.jpg">
+        </div>
+        <div class="img">
+            <img class="pic" alt="加载中" data-src="./images/6.jpg">
+        </div>
+        <div class="img">
+            <img class="pic" alt="加载中" data-src="./images/7.jpg">
+        </div>
+        <div class="img">
+            <img class="pic" alt="加载中" data-src="./images/8.jpg">
+        </div>
+        <div class="img">
+            <img class="pic" alt="加载中" data-src="./images/9.jpg">
+        </div>
+        <div class="img">
+            <img class="pic" alt="加载中" data-src="./images/10.jpg">
+        </div>
+    </div>
+    <!-- <script>
+        var vh = window.innerHeight // 可视窗口高度
+        var imgs = document.getElementsByTagName("img")
+        var currentIdx = 0 //用于统计当前显示到了哪一张图片，避免每次都从第一张图片开始检查
+        // 利用 getBoundingClientRect method
+        // function loadImg() {
+        //     for (let i = currentIdx; i < imgs.length; i++) {
+        //         let distance = vh - imgs[i].getBoundingClientRect().top
+        //         if (distance >= 0) { // 如果可视区域高度大于等于元素顶部距离可视区域顶部的高度，说明元素已经出现在可视区域内
+        //             imgs[i].src = imgs[i].dataset.src
+        //             currentIdx = i + 1
+        //         }
+        //     }
+        // } 
+        // 根据位置信息计算
+        function loadImg() {
+            for (let i = currentIdx; i < imgs.length; i++) {
+                let distance = imgs[i].offsetTop - document.documentElement.scrollTop - document.documentElement
+                    .clientHeight
+                if (distance <= 0) {
+                    imgs[i].src = imgs[i].dataset.src
+                    currentIdx = i + 1
+                }
+            }
+        }
+        loadImg()
+        // 监听Scroll事件
+        window.addEventListener('scroll', loadImg, false);
+    </script> -->
+    <script>
+        function checkImgs() {
+            const imgs = Array.from(document.querySelectorAll("img"));
+            imgs.forEach(item => io.observe(item));
+        }
+
+        function loadImg(el) {
+            if (!el.src) {
+                const source = el.dataset.src;
+                el.src = source;
+            }
+        }
+
+        const io = new IntersectionObserver(ioes => {
+            ioes.forEach(ioe => {
+                const el = ioe.target;
+                const intersectionRatio = ioe.intersectionRatio;
+                if (intersectionRatio > 0 && intersectionRatio <= 1) { // 要提前为图片占好位置，否则会出现初始化全量加载的情况（因为此时图片的宽高都很小，全在可视区域内）
+                    console.log("加载图片")
+                    loadImg(el);
+                }
+                el.onload = el.onerror = () => io.unobserve(el); //加载完或者出错的时候，取消监听。
+            });
+        });
+        checkImgs()
+    </script>
+</body>
+
+</html>
+
+
+<!-- 
+    js获取图片距离可视区域的高度方式：
+    plan1：
+    获取观测元素相对于文档顶部的距离：element.offsetTop
+    获取可视窗口距离文档顶部的距离即滚动条的距离（scrollTop）：document.documentElement.scrollTop
+    获取屏幕可视窗口高度：document.documentElement.clientHeight
+    reduce = offsetTop - scrollTop - clientHeight <= 0就在可视区了。
+
+    plan2：
+    getBoundingClientRect：https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect
+
+    plan3：
+    intersectionobserver http://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html
+    IntersectionObserver API 是异步的，不随着目标元素的滚动同步触发。
+    规格写明，IntersectionObserver的实现，应该采用requestIdleCallback()，即只有线程空闲下来，才会执行观察器。
+    这意味着，这个观察器的优先级非常低，只在其他任务执行完，浏览器有了空闲才会执行。
+    注意兼容性问题，我指的谁，你懂得
+ -->

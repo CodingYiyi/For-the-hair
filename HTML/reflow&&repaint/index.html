@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重绘和回流测试</title>
+    <script>
+        function change() {
+            let container = document.getElementById('container')
+            container.style.width = '100px'
+            container.style.height = '200px'
+            container.style.background = 'red'
+            console.log(container.offsetHeight)
+            container.style.width = '300px'
+            container.style.height = '400px'
+            container.style.background = 'blue'
+            container.style.border = '10px solid red'
+
+            // for (let i = 0; i < 10; i++) {
+            //     container.style.top = container.offsetTop + 10 + "px";
+            //     container.style.left = container.offsetLeft + 10 + "px";
+            // }
+
+            // container.style.top = container.offsetTop + 100 + 'px'
+            // container.style.left = container.offsetLeft + 100 + 'px'
+        }
+    </script>
+    <style>
+        .base {
+            width: 200px;
+            height: 300px;
+            background: yellow;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container" class="base"></div>
+    <button onclick="change()" style="position: absolute;">改变样式</button>
+    <ul>
+        <li>执行offset相关操作会造成 recalculate style 事件频繁触发</li>
+    </ul>
+</body>
+
+</html>

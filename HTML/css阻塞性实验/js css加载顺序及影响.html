@@ -15,7 +15,6 @@
         console.log("开始下载CSS",startDownloadCss)
     </script>
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
-    <!-- <script src="./test.js"></script> -->
 </head>
 
 <body>
@@ -27,21 +26,28 @@
         console.log("开始执行JS",startDom)
     </script> -->
     <h1>CSS下载阻塞性实验h1-2</h1>
-    <!-- <script src="./test.normal.js" ></script> -->
+    <script src="./test.normal.js" ></script>
     <!-- <script src="./test.async.js" async></script> -->
-    <script src="./test.defer.js" defer></script>
+    <!-- <script src="./test.defer.js" defer></script> -->
     <ol>
         <li>CSS下载不会阻塞DOM树的构建</li>
         <li>CSS下载不会阻塞后续JS的下载</li>
         <li>CSS下载会阻塞DOM树的渲染</li>
         <li>CSS下载会阻塞后面js语句的执行</li>
+        <li>CSS下载完会构建cssom，js由于可能会改变cssom所以必须等待cssom构建后才开始解析，并且js会阻塞dom构建</li>
+        <li>DOM树解析、js执行和首屏渲染是串行的</li>
+        <li>DOM树解析到非异步（没有设置defer 或者 async）的外联js时会阻塞住，在它加载并且执行完之前，不会往下解析DOM树</li>
+        <li>JS会阻塞住dom树解析，因而你把script[src]放在 head 中会阻塞住首屏渲染，最好还是放在body尾部</li>
+        <li>JS放在头部会使浏览器的first paint时间，现代浏览器能够渲染不完整的dom（所以js应该放在body底部）</li>
         <li>JS设置async后，下载完成会立即执行，不会被CSS的下载所阻塞</li>
         <li>JS设置defer后，DOM树解析完成会立即执行，不会被还没有下载完的CSS所阻塞</li>
         <li>JS引擎单线程特性：若当前有正在执行的JS，则后续已经下载完的JS会等待</li>
+        <li><a href="https://www.cnblogs.com/caizhenbo/p/6679478.html">一篇说的很好的文章</a></li>
+        <li></li>
     </ol>
-    <!-- <script defer>
+    <script defer>
         console.log(new Date().getTime()-startDownloadCss)
-    </script> -->
+    </script>
     <!-- <script>
         var date = new Date().getTime()
         while (new Date().getTime() - date < 2000) {
