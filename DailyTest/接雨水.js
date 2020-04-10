@@ -1,25 +1,47 @@
-/**《盛最多水的容器》
-给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。
-在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
-说明：你不能倾斜容器，且 n 的值至少为 2。
+/**
+给定 n 个非负整数(n>2)表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+示例:
+输入: [0,1,0,2,1,0,1,3,2,1,2,1]
+输出: 6
 
 来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/container-with-most-water
+链接：https://leetcode-cn.com/problems/trapping-rain-water
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
-// 解题思路；双指针
-// 面积 = 宽度 * 高度 
-// 使用第一列和最后一列, 可以构建宽度最宽的容器, 它的水位是第一根和最后一根中较小的一个的高度。 
-// 所有其他容器的宽度会更小, 又因为需要较高的水位才能容纳更多的水, 只能通过提高水位线来获得, 即移动较矮的指针;
-// G点：收敛的过程肯定会降低 宽度， 所以只能提升高度，提升高度的办法就是尽量把矮的换成高的
 
-function biggestContainer(arr){
-    var leftIndex=0,rightIndex=arr.length-1,max=0
-    while(leftIndex<rightIndex){ //收敛的边界
-        max=Math.max(Math.min(arr[leftIndex],arr[rightIndex])*(rightIndex-leftIndex),max)
-        height[leftIndex]>height[rightIndex] ? rightIndex--:leftIndex++ //收敛的过程
+// 题目分析：盛水量 = ∑(H-itemH)*1
+// 问题转化为怎么求H的问题，给定一个位置i，这个位置可以盛水，必须满足该位置左右两端都存在比其高的柱子，
+// 且该位置i（纵向分析）的盛水量为 Math.min(左端最高柱子，右端最高柱子)-item[i].height
+// 依次遍历数组，累计即可，问题的关键在于求解左边柱子最大值和右边柱子最大值,
+// 我们其实可以用两个数组来表示leftMax, rightMax，
+// 以leftMax为例，leftMax[i]代表i的左侧柱子的最大值，因此我们维护两个数组即可。
+
+// 关键点解析
+// 建模 h[i] = Math.min(左边柱子最大值, 右边柱子最大值)(h为下雨之后的水位)
+// 时间复杂度O(n)、空间复杂度O(n)
+
+function trap (arr) {
+    let leftArr = [], rightArr = []
+    let maxLeftH = arr[0], maxRightH = arr[arr.length - 1]
+    let sum = 0
+    for (let i = 0; i < arr.length; i++) {
+        let item = arr[i]
+        maxLeftH = Math.max(maxLeftH, item)
+        leftArr[i] = maxLeftH
     }
-    return max
+    for (let j = arr.length - 1; j >= 0; j--) {
+        let item = arr[j]
+        maxRightH = Math.max(maxRightH, item)
+        rightArr[j] = maxRightH
+    }
+    for (let k = 0; k < arr.length; k++) {
+        let item = arr[k]
+        sum += (Math.min(leftArr[k], rightArr[k]) - item)
+    }
+    return sum
 }
-var testArr=[1,8,6,2,5,4,8,3,7]
-console.log(biggestContainer(testArr))
+
+var testArr = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
+console.log(trap(testArr))
+
+// TODO：使用双指针优化，空间复杂度降为O(1)
