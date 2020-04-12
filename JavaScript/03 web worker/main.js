@@ -7,7 +7,7 @@ if (window.Worker) {
 	const myWorker = new Worker("worker.js");
 
 	first.onchange = function() {
-	  myWorker.postMessage([first.value, second.value]);
+	  myWorker.postMessage([first.value, second.value]);//主进程向worker发送消息
 	  console.log('Message posted to worker');
 	}
 
@@ -16,10 +16,20 @@ if (window.Worker) {
 	  console.log('Message posted to worker');
 	}
 
+	// 主进程接受worker消息
 	myWorker.onmessage = function(e) {
 		result.textContent = e.data;
 		console.log('Message received from worker');
 	}
+	// 主进程监听worker错误
+	myWorker.onerror = function(e){
+		console.log("worker error!!!",e)
+	}
+	
+	// 时隔10秒后主进程关闭worker
+	setTimeout(function(){
+		myWorker.terminate(); 
+	},10000)
 } else {
 	console.log('Your browser doesn\'t support web workers.')
 }
