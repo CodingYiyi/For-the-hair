@@ -86,3 +86,7 @@ web worker的兼容性问题，主流浏览器对web worker的兼容性还不够
 高频的用户交互适用于根据用户的输入习惯、历史记录以及缓存等信息来协助用户完成输入的纠错、校正功能等类似场景，用户频繁输入的响应处理同样可以考虑放在web worker中执行。
 
 最后声明一点，了解后台的同学千万不要认为web worker等同于后台意义的多线程，web worker现在有了多线程的形（有了多线程的用法），但还不具备多线程的神（不具备线程通信、锁等后台线程的基本特性），web worker的本质是支持我们把数据刷新与页面渲染两个动作拆开执行（不使用web worker的话这两个动作在主线程中是线性执行的）。
+
+2017年的一篇文章 [web worker 实战](https://mp.weixin.qq.com/s/7ucgN6SgW4v1RJpS0Lrk6A)
+
+[Web Workers 的基本信息](https://www.html5rocks.com/zh/tutorials/workers/basics/)
