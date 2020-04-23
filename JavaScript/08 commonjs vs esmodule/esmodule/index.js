@@ -1,4 +1,4 @@
-import { count, add } from './a.js'
+import { count, add } from './test.js'
 
 console.log(count) //0
 add();

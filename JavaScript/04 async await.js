@@ -191,3 +191,35 @@ testPromise().then(res => {
 }).then(_ => {
     console.log(1111)
 })
+
+function testPromise () {
+    return new Promise((resolve, reject) => {
+        setTimeout(_ => { resolve("resolved") }, 1000)
+    })
+}
+
+
+testPromise().then(res1=>{
+    console.log("res1:",res1)
+    // return 111 // 等价于 return Promise.resolve(111)
+    return Promise.resolve(111)
+}).then(res2=>{
+    console.log("res2:",res2)
+})
+
+
+
+// var test = function(a) {
+//     var a = 1
+//     return function (b) {
+//         return a + b
+//     }(function (a,b) {
+//         return a
+//     }(1,2))};
+
+//     console.log(test(6))
+
+
+// !function (a) {
+//         console.log(a)
+//     }(1,2)
