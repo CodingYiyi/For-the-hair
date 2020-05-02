@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue源码调试</title>
+</head>
+<body>
+    <div id="app">
+        <span>{{message}}</span>
+        <br>
+        <span>count:{{count}}</span>
+        <button v-on:click="addCount()">增加count</button>
+        <ul>
+            <li v-for="(item,index) in list" :key='"aa"+index'>
+                <input type="checkbox" :value="item.checked">
+                <span>{{item.text}}</span>
+            </li>
+        </ul>
+        <button @click="deleteFirstItem()">删除第一项</button>
+        <button @click="addFirstItem()">增加第一项</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>
