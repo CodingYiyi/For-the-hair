@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="app">
-        <span>{{message}}</span>
+        <!-- <span>{{message}}</span>
         <br>
         <span>count:{{count}}</span>
         <button v-on:click="addCount()">增加count</button>
@@ -18,7 +18,19 @@
             </li>
         </ul>
         <button @click="deleteFirstItem()">删除第一项</button>
-        <button @click="addFirstItem()">增加第一项</button>
+        <button @click="addFirstItem()">增加第一项</button> -->
+        <p>user data :{{userInfo.name}}</p>
+        <p>dataNotInData：{{dataNotInData}}</p>
+        <button @click="changeData()">改变dataNotInData的值</button>
+
+        <zy-button>
+            <p>默认slot1</p>
+            <div slot="header" style="color: red;">header slot</div>
+            <!-- v-slot 只能作用到 template 标签上，但是 :slot 却没有这个限制？ -->
+            
+            <div :slot="slot" style="color: blue;">footer slot</div>
+            <p>默认slot2</p>
+        </zy-button>
     </div>
     <script src="./vue.js"></script>
     <script src="./index.js"></script>

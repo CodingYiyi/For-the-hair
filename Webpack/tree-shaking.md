@@ -122,7 +122,35 @@ Q：commonjs和es module的区别
 Q：为什么摇树优化只支持es 模块，换句话说，为什么static-module-structure？
 
 简单理解：commonjs 为运行时加载，即不到真正运行到那一行代码的时候，是没法确定依赖的；而 esm 编译时就可以确定需要加载的内容，所以可以做摇树优化
-[es module](https://exploringjs.com/es6/ch_modules.html#static-module-structure)
 
+## webpack 的 require.context 加载可以使用 tree-shaking 吗？
+在编写 vue 公共组件库的时候，注册至全局的时候使用的一种比较优雅的写法，其中就使用到了 require.context 方法注入模块(如下)，那么这种写法可以被摇树优化掉吗？
+
+```
+// import 所有全局公共组件
+// import button from  './button.vue'
+
+// Vue.use 方式注册插件必须提供 install 方法
+const install = function (Vue) {
+    // 通过 Vue.component 方法注册全局组件
+    // https://cn.vuejs.org/v2/api/#Vue-component
+    // Vue.component(button.name,button)
+
+    // 上述方式在注册多个组件的时候写法略繁琐，可采用下述写法
+    // https://cn.vuejs.org/v2/guide/components-registration.html#基础组件的自动化全局注册
+    const requireComponents = require.context('.',false,/\.vue$/)
+    requireComponents.keys().forEach(fileName => {
+        let compM = requireComponents(fileName)
+        Vue.component(compM.default.name,compM.default)
+    });
+}
+
+export default { install }
+```
+
+[管理依赖](https://webpack.docschina.org/guides/dependency-management/#require-context)
+[Tree Shaking with require.context](https://github.com/webpack/webpack/issues/4181)
+
+[es module](https://exploringjs.com/es6/ch_modules.html#static-module-structure)
 
 [lodash 不能使用 tree-shaking](https://www.zhihu.com/question/333421533/answer/764963886)
