@@ -14,11 +14,12 @@
         var startDownloadCss = new Date().getTime()
         console.log("开始下载CSS",startDownloadCss)
     </script>
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="preload" as="style"> -->
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
 </head>
 
 <body>
-    <h1>CSS下载阻塞性实验h1-1</h1>
+    <h1 class="form-check-inline">CSS下载阻塞性实验h1-1</h1>
     <!-- <script>
         console.log("下载完CSS花费时间",new Date().getTime()-startDownloadCss)
         console.log(document.getElementsByTagName("h1"))
