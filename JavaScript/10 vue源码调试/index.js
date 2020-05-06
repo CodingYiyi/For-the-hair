@@ -1,23 +1,4 @@
-const zyButton = Vue.component("zy-button", {
-    template: `
-        <div>
-        默认数据
-        <slot name="header" ></slot>
-        <slot></slot>
-        <slot name="footer"></slot>
-        </div>
-    `,
-    // render: function (createElement) {
-    //     var header = this.$slots.header
-    //     var body = this.$slots.default
-    //     var footer = this.$slots.footer
-    //     return createElement('div', [
-    //         createElement('header', header),
-    //         createElement('main', body),
-    //         createElement('footer', footer)
-    //     ])
-    // }
-})
+import {zySlot as zyySlot} from './button.js' // as 指定别名
 
 var app = new Vue({
     el: '#app',
@@ -39,7 +20,7 @@ var app = new Vue({
     //         },
     //     ]
     // },
-    components: { zyButton },
+    components: { 'zyyslot':zyySlot }, // 'zyyslot' 指定了html中标签的名称;若不指定，默认将驼峰命名转换为中划线形式，不区分大小写：zyySlot -> zyy-slot
     data () {
         // this.test = "test data"
         this.dataNotInData = "初始化数据"
@@ -63,7 +44,7 @@ var app = new Vue({
         // },
         changeData () {
             console.log(this.dataNotInData)
-            this.userInfo.name = Math.random()
+            // this.userInfo.name = Math.random() // 对 freeze 的数据更改会报错
             this.dataNotInData = `dataNotInData的值为:${Math.random()}`
             // this.test = Math.random()
         }
@@ -91,5 +72,3 @@ var app = new Vue({
         console.log(this.$data.userInfo === this.userInfo)
     }
 })
-
-console.log(app)
