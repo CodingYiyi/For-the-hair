@@ -22,10 +22,13 @@ function SubType (name, age) {
 // plan1：new 的方式的确会创建一个关联到父类原型的新对象，但它执行了 父类函数的构造调用，如果在这个函数里面执行了一些有副作用的代码（修改状态，给this添加数据等），那么就会影响到子类的实例，
 // 即子类的原型指向的是父类的实例，那么原来父类的实例属性变成了子类的原型属性，父类原型的引用类型也会被所有的子类实例共享，可能会被意外修改。所以也不是一种好的解决方案
 SubType.prototype = new SuperType()
+
 // plan2：此方法并不会创建一个关联到 Super.prototype 的新对象，它只是让 SubType.prototype 直接引用 SuperType.prototype 对象，因此当你执行类似 SubType.prototype.getAge=…… 的赋值语句时，也会直接修改父类的原型（这不是你想要的结果！）
 // SubType.prototype = SuperType.prototype 
+
 // plan3：ES5 的时候，我们通过创建一个新的对象（并且把旧对象抛弃掉）的方式将父类原型关联到子类原型上(会带来轻微的性能损失，旧对象需要被垃圾回收机制处理掉)
 // SubType.prototype = Object.creat(Foo.prototype)
+
 // plan4：ES6 我们可以借助 Object.setPrototypeOf(...)的方式实现关联
 // Object.setPrototypeOf(SubType.prototype,SuperType.prototype)
 SubType.prototype.getAge = function () {
