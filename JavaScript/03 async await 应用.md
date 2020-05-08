@@ -111,10 +111,10 @@ var sequentialStart = async function() {
 
 var concurrentStart = async function() {
   console.log('==CONCURRENT START with await==');
-  const slow = resolveAfter2Seconds(); // 1.立即开始计时
+  const slow = resolveAfter2Seconds(); // 1.立即开始计时，注意：这个地方没有用 await，所以不会阻塞，下面代码正常执行
   const fast = resolveAfter1Second(); // 1.立即开始计时
 
-  console.log(await slow); // 2.等待两秒后，输出 slow
+  console.log(await slow); // 2.等待两秒后，输出 slow，注意：此处用了 await ，所以下面的代码会等待这一行执行完再执行，尽管fast先到达执行时间
   console.log(await fast); // 3.上一部执行完毕后，立即输出 fast（step1-3总共花了2秒），因为step2执行完后，计时器已经到达，所以立即执行，无需等待
 }
 ```
@@ -131,7 +131,7 @@ function sleep(time){
 async function one2FiveInAsync(){
 	for(var i = 1;i<=5;i++){
 		console.log(i);
-		await sleep(1000);
+		await sleep(1000); //await 等待的是一个 promise 的 resolve，故上述sleep函数的timeout中若改为reject，则只会打印一个1
 	}
 }
 one2FiveInAsync();
@@ -155,6 +155,28 @@ async function test() {
 
 test();
 ```
+3. 需求：实现一个红绿灯，把一个圆形div按照绿色3秒，黄色1秒，红色2秒循环改变背景色。
+
+```
+    function sleep(duration) {
+      return new Promise(reslove => {
+        setTimeout(reslove, duration);
+      })
+    }
+    async function changeColor(duration, color) {
+      console.log(color);
+      await sleep(duration);
+    }
+    async function main() {
+      while(true) {
+        await changeColor(3000, "green");
+        await changeColor(1000, "yellow");
+        await changeColor(2000, "red");
+      }
+    }
+    main()
+```
+
 
 > ##### 使用注意
 > 1. 使用 await 关键字时，函数就得用 async 修饰，否则报错；

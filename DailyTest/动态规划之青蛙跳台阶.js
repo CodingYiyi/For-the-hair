@@ -3,12 +3,10 @@
 // 从 n - 1 级跳 1 级上来
 // 从 n - 2 级跳 2 级上来
 // 青蛙跳到 n- 1 级有 f(n-1)种方法，跳到 n- 2 级有 f(n-2)种方法。所以 f(n) = f(n - 1) + f(n - 2)。这就是斐波那契数列的定义式。
-
 function jumpStep (n) {
     if (n <= 1) return n
     return jumpStep(n - 1) + jumpStep(n - 2)
 }
-
 console.log(jumpStep(7))
 
 
@@ -26,17 +24,24 @@ console.log(jumpStep(7))
 
 结合公式 3 和公式 4: f(n) = f(n - 2) * 2 * 2。因此可以推出：f(n) = 2^(n - 1)
 */
-
 function advancedJump (n) {
     return Math.pow(2, n - 1)
 }
 
 
 // 斐波那契数列尾递归优化：减少调用栈信息
-
-function betterFib (n,act1=1,act2=1){
-    if(n<=1) return act2
-    return betterFib(n-1, act2, act1+act2)
+function betterFib (n, act1 = 1, act2 = 1) {
+    if (n <= 1) return act2
+    return betterFib(n - 1, act2, act1 + act2)
 }
-
 console.log(betterFib(100))
+
+// 使用数组存储，代替递归
+function arrayFib (n) {
+    let array = [1, 2]
+    for (let i = 2; i < n; i++) {
+        array[i]=array[i-1]+array[i-2]
+    }
+    return array.pop()
+}
+console.log(arrayFib(100))

@@ -126,6 +126,8 @@ Q：为什么摇树优化只支持es 模块，换句话说，为什么static-mod
 ## webpack 的 require.context 加载可以使用 tree-shaking 吗？
 在编写 vue 公共组件库的时候，注册至全局的时候使用的一种比较优雅的写法，其中就使用到了 require.context 方法注入模块(如下)，那么这种写法可以被摇树优化掉吗？
 
+答案：NO
+
 ```
 // import 所有全局公共组件
 // import button from  './button.vue'
@@ -149,6 +151,7 @@ export default { install }
 ```
 
 [管理依赖](https://webpack.docschina.org/guides/dependency-management/#require-context)
+
 [Tree Shaking with require.context](https://github.com/webpack/webpack/issues/4181)
 
 [es module](https://exploringjs.com/es6/ch_modules.html#static-module-structure)

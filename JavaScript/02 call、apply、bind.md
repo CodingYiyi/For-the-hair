@@ -59,6 +59,7 @@ personSay(); // 小明：hello
 >bind 传参方式与call一致，也是**按照顺序依次传入，而不是接受一个数组**。
 
 ##MDN文档是这么说的~
+
 1、**call**：`fun.call(thisArg, arg1, arg2, ...)`
 
 * thisArg: 在fun函数运行时指定的this值。需要注意的是，指定的this值并不一定是该函数执行时真正的this值，如果这个函数处于**非严格模式下，则指定为null和undefined的this值会自动指向全局对象(浏览器中就是window对象)**，同时值为原始值(数字，字符串，布尔值)的this会指向该原始值的自动包装对象。

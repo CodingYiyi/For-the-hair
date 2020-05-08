@@ -73,7 +73,7 @@ var a = 2;
 
 >同样的问题，还发生在传入回调函数中，这种情况更加常见，并且隐蔽，类似：
 
->````
+````
 function foo() {
     console.log( this.a );
 }
@@ -198,7 +198,7 @@ var obj2 = {
 }
 
 var bar = foo.call( obj1 ); // foo this指向obj1
-bar.call( obj2 ); // 2，不是3！// 输出2 这里执行箭头函数 并试图绑定this指向到obj2
+bar.call( obj2 ); // 2，不是3！// 输出2 这里执行箭头函数 并试图绑定this指向到obj2，但是由于使用了箭头函数，所以无法修改this
 ````
 foo()内部创建的箭头函数会捕获**调用时foo()的this**。由于foo()的this绑定到obj1，bar(引用箭头函数)的this也会绑定到obj1，箭头函数的绑定无法被修改(new也不行)。
 

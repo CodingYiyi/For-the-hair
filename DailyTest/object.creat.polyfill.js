@@ -20,7 +20,7 @@ var createdObj = Object._create(originObj)
 console.log(createdObj)
 console.log(createdObj.name) // "zhangyi"
 
-// wrong implement!
+// warning：wrong implement!
 Object._create = function (O) {
     var o = {}
     o.prototype = O // 直接访问的是o对象的键名为“prototype”的属性，返回undefined

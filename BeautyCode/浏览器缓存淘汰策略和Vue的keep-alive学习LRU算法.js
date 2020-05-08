@@ -5,6 +5,23 @@
  * 其核心思想是 如果数据最近被访问过，那么将来被访问的几率也更高 ，优先淘汰最近没有被访问到的数据。
  */
 
+
+// 前置知识：Map 是有序的，插入顺序就是遍历顺序
+/**
+Map和Object的区别
+
+1. 一个Object 的键只能是字符串或者 Symbols，但一个Map 的键可以是任意值。
+2. Map中的键值是有序的（FIFO 原则），而添加到对象中的键则不是。
+3. Map的键值对个数可以从 size 属性获取，而 Object 的键值对个数只能手动计算。
+4. Object 都有自己的原型，原型链上的键名有可能和你自己在对象上的设置的键名产生冲突。
+
+set(key, val): 向Map中添加新元素
+get(key): 通过键值查找特定的数值并返回
+has(key): 判断Map对象中是否有Key所对应的值，有返回true,否则返回false
+delete(key): 通过键值从Map中移除对应的数据
+clear(): 将这个Map中的所有元素删除
+
+ */
 function LRUCache (size) {
     this.size = size
     this.cache = new Map()

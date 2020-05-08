@@ -1,6 +1,6 @@
 # 内容安全策略 - XSS攻击的有效防御手段之一
 
-> 随着 cookie 的 secure 属性的推出，CSRF攻击也被有效地防御。相应的，本文提到的CSP为XSS攻击的有效防御手段。
+> 随着 cookie 的 samesite 属性的推出，CSRF攻击也被有效地防御。相应的，本文提到的 CSP 为 XSS 攻击的有效防御手段。
 
 在阅读 Vue 源码的时候（template 转化成 render 函数的那部分 createCompileToFunctionFn ），有如下代码
 

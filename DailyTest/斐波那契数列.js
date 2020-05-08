@@ -76,14 +76,18 @@ function whileFib(n){
 }
 
 // 还能不能继续优化？
-// 我们发现其实每次只需要前两个值即可，所以空间复杂度还可以继续降低为O(n)
+// 我们发现其实每次只需要前两个值即可，所以空间复杂度还可以继续降低为O(1)
 function betterWhileFib(n){
     let val1=1,val2=1,valTemp,i=2
     if(n<2) return 1
     while(i<n){
-        valTemp = val2
-        val2 = val1 + val2
-        val1 = valTemp
+        // 方案1：使用临时变量交换元素值
+        // valTemp = val2
+        // val2 = val1 + val2
+        // val1 = valTemp
+        // i++
+        // 方案2：使用es6交换
+        [val1,val2] = [val2,val1+val2]
         i++
     }
     return val1+val2
