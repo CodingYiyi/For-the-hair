@@ -2,12 +2,13 @@
 // 并且避免不必要的麻烦（比如使用 new 的构造函数调用会生成 .prototype 和 .constructor 引用，详见隔壁 what'sClassExtend.js）
 
 // 早期写法
-// Object._create = function (O) {
-//     function F () { }
-//     F.prototype = O
-//     return new F()
-// }
+Object._create = function (O) {
+    function F () { }
+    F.prototype = O
+    return new F()
+}
 
+// ES6写法
 Object._create = function (O) {
     var o = {}
     return Object.setPrototypeOf(o, O) // Object.setPrototypeOf 为 ES6新语法
