@@ -27,12 +27,14 @@
         {{itemValue.text}}
       </template>
     </zy-todo>
+    <prop-obj-test :info="testInfoData" @onValChange="changeVal($event)"></prop-obj-test>
   </div>
 </template>
 
 <script>
 // 没有通过 vue.use 方式安装的组件，不为全局组件，需要通过import配合components的方式在业务代码中使用
 import buButton from './components/button.vue'
+import propObjTest from './components/propsObjTest.vue'
 export default {
   name: 'App',
   data () {
@@ -57,11 +59,17 @@ export default {
           id: 4,
           text: "todo-4"
         },
-      ]
+      ],
+      testInfoData : {
+        name:"zhang",
+        age:20,
+        num:""
+      }
     }
   },
   components: {
-    buButton
+    buButton,
+    propObjTest
   },
   // components:{
   //   'bu-button':buButton
@@ -80,6 +88,9 @@ export default {
     },
     click (e) {
       console.log("component click!!!", e)
+    },
+    changeVal(){
+      this.testInfoData.num = Math.random()
     }
   },
   watch: {

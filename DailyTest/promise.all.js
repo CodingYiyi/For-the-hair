@@ -49,3 +49,16 @@ Promise.selfAll2 = function(promises){
         }
     })
 }
+
+var p = new Promise((resolve,reject)=>{
+    setTimeout(_=>{
+       resolve(123)
+    },3000)
+})
+
+p.then(data=>{
+    console.log(1,data)
+    return Promise.resolve(data)
+}).then(data=>{
+    console.log(2,data)
+})
