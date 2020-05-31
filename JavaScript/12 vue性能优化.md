@@ -106,8 +106,10 @@ export default {
 但是你性能的提升也得建立在代码正常的情况下吧，要是渲染都跟预期不一致了，还谈何性能？？？
 不指定Key的情况下，的确有一些情况会导致异常，常见的就是如下图（没有指定key），渲染一个数组【a,b,c】,点击按钮，删除第一项。
 
-<img src="./img/11-02.png" width="45%"/>
-<img src="./img/11-03.png" width="45%"/>
+![11-02.png](https://i.loli.net/2020/05/24/VCNlBdErTHgn5Qu.png)
+![11-03.png](https://i.loli.net/2020/05/24/54gBFXLm1VftMCK.png)
+<!-- <img src="./img/11-02.png" width="45%"/>
+<img src="./img/11-03.png" width="45%"/> -->
 
 很神奇吧，a的确被删掉了，但是其选中的状态被保存下来了。这就是我上文提到的程序异常。
 

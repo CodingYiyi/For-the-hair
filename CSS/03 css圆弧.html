@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 圆弧实现</title>
+    <style>
+        .gradient_top {
+            position: relative;
+            width: 50px;
+            height: 20px;
+            z-index: -1;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .gradient_top::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: '';
+            width: 50px;
+            height: 20px;
+            z-index: -1;
+            border-radius: 0 0 200% 200%/0 0 100% 100%;
+            background: linear-gradient(90deg, rgba(251, 170, 60, 1) 0%, rgba(233, 44, 37, 1) 100%);
+        }
+
+        .gradient_top::before {
+            content: "";
+            width: 0px;
+            height: 0px;
+            border-bottom: 4px solid #E92C25;
+            border-right: 4px solid transparent;
+            position: absolute;
+            top: 0;
+            left: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gradient_top">
+        测试数据
+    </div>
+</body>
+
+</html>
