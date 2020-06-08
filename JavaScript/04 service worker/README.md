@@ -86,3 +86,10 @@ self.addEventListener('fetch', function(event) {
 ```
 
 ## 很好用的workbox
+
+## 相关链接
+
+[Service Worker 从入门到进阶](https://www.jianshu.com/p/08c0fdec31b4)
+[理解Service Worker](https://zhuanlan.zhihu.com/p/28461857)
+[设计一个无懈可击的浏览器缓存方案：关于思路，细节，ServiceWorker，以及HTTP/2](https://zhuanlan.zhihu.com/p/28113197)
+[Workbox 3：Service Worker 可以如此简单](https://fed.taobao.org/blog/taofed/do71ct/workbox3/?spm=taofed.homepage.header.13.7eab5ac82ByuLw)

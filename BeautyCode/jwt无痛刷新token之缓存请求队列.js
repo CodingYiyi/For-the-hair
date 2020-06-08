@@ -124,3 +124,33 @@ p.then(res=>{
     console.log(res)
     return res
 }).then()
+
+function test(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(_=>{
+            if(Math.random()>0.5) resolve("success")
+            else reject("error")
+        },3000)
+    })
+}
+
+var p2 = new Promise((resolve,reject)=>{
+    resolve(test())
+})
+
+p2.then(res=>{
+    console.log(res)
+},err=>{
+    console.log(err)
+})
+
+
+console.log("宏任务01")
+Promise.resolve("微任务01").then(res=>{
+    console.log(res)
+    Promise.resolve("微任务01中的微任务").then(res=>console.log(res))
+})
+console.log("宏任务02")
+setTimeout(_=>{
+    console.log("第二个宏任务对列")
+},0)
