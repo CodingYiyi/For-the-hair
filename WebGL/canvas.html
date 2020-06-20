@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绘制正方形（canvas版本)</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="100" height="100" style="border:1px solid red">
+        您的浏览器不支持canvas呢
+    </canvas>
+</body>
+<script>
+    function main() {
+        // 获取canvas对象
+        var canvas = document.getElementById("canvas")
+        if (!canvas) {
+            console.warn("获取canvas对象失败")
+            return
+        }
+        // 获取canvas上下文
+        var ctx = canvas.getContext("2d")
+        // 绘制蓝色举行
+        // fillStyle 和 fillRect 都是canvas上下文提供的方法
+        ctx.fillStyle = "rgba(0,0,255,1.0)"
+        ctx.fillRect(20, 30, 30, 30)
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        main()
+    });
+</script>
+
+</html>
